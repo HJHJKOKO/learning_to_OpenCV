@@ -1,0 +1,33 @@
+import cv2 as cv
+import numpy as np
+from PIL import Image
+import pytesseract as tess
+# 30.數字驗證碼識別
+
+
+def recognize_text():
+    gray = cv.cvtColor(src, cv.COLOR_BGR2GRAY)
+    ret, open_out = cv.threshold(gray, 0, 255, cv.THRESH_BINARY | cv.THRESH_OTSU) 
+
+    # kernel = cv.getStructuringElement(cv.MORPH_RECT, (1, 5))
+    # bin1 = cv.morphologyEx(binary, cv.MORPH_OPEN, kernel)
+    # kernel = cv.getStructuringElement(cv.MORPH_RECT, (5, 1))
+    # open_out = cv.morphologyEx(bin1, cv.MORPH_OPEN, kernel)
+    cv.imshow("morphologyEx_image", open_out)
+
+    cv.bitwise_not(open_out, open_out)
+    cv.imshow("bitwise", open_out)
+    textImage = Image.fromarray(open_out)
+    text = tess.image_to_string(textImage)
+    print("識別結果: %s"%text)
+
+print("-------hello python--------")
+src = cv.imread("F:/recognize_text/7.jpg")    
+cv.namedWindow("input image", cv.WINDOW_AUTOSIZE)
+cv.imshow("image", src)
+
+recognize_text()
+
+cv.waitKey(0)
+
+cv.destoryAllWindows()
