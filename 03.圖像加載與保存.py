@@ -1,6 +1,6 @@
 import cv2 as cv
 import numpy as np
-# 03.Numpy數組操作
+# 03.圖像加載與保存
 
 
 def access_pixels(image):
